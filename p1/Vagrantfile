@@ -1,0 +1,27 @@
+Vagrant.configure("2") do |config|
+	config.vm.box = "boxomatic/debian-12"
+
+	config.ssh.forward_agent = true
+	config.ssh.forward_x11 = true
+
+	config.vm.provider "virtualbox" do |v|
+		v.memory = 1024
+		v.cpus = 1
+	end
+
+	config.vm.define :thzeribiS do |server|
+		server.vm.hostname = 'thzeribiS'
+		server.config.vm.network "private_network", ip: '192.168.56.110'
+		server.vm.provider :virtualbox do |v|
+			v.customize ["modifyvm", :id, "--name", "thzeribiS"]
+		end
+	end
+
+	config.vm.define :thzeribiSW do |worker|
+		worker.vm.hostname = 'thzeribiSW'
+		worker.config.vm.network "private_network", ip: '192.168.56.111'
+		worker.vm.provider :virtualbox do |v|
+			v.customize ["modifyvm", :id, "--name", "thzeribiSW"]
+		end
+	end
+end
