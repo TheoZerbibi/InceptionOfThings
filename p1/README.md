@@ -34,8 +34,8 @@ bare minimum in terms of resources: 1 CPU, 512 MB of RAM (or 1024).`.
   - Copy SSH key in root folder and change permissions.
   - Put hostname and IP address in `/etc/hosts` file.
   - Install K3s with `curl -sfL https://get.k3s.io | sh -`.
-  - Apply a [taint](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) to the node to prevent pods from being scheduled on it.
   -  Label the master node with `kubectl label` [command](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
+  - Apply a [taint](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) to the node to prevent pods from being scheduled on it.
 ### Second machine (Worker)
 - Define hostname and IP address in [Vagrantfile](https://developer.hashicorp.com/vagrant/docs/vagrantfile/machine_settings#config-vm-network).
 - Copy SSH key inside the VM with [`config.vm.provision "file"`](https://developer.hashicorp.com/vagrant/docs/provisioning/file).
