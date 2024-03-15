@@ -36,7 +36,7 @@ apt-get update && apt-get install -y curl
 curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --cluster-init --tls-san $(hostname) --bind-address=${SERVER_IP} --advertise-address=${SERVER_IP} --node-ip=${SERVER_IP}" K3S_KUBECONFIG_MODE="644" sh -
 
 # Move the manifests to the K3s server directory
-mv ${MANIFEST_TMP_DIR}/* /var/lib/rancher/k3s/server/manifests/
+mv ${MANIFEST_TMP_DIR} /var/lib/rancher/k3s/server/manifests/
 
 # Set the KUBECONFIG environment variable
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
