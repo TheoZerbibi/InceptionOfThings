@@ -43,3 +43,7 @@ kubectl wait --for=condition=Ready node/${LOWER_HOSTNAME} --timeout=5m
 
 # Apply the manifest files
 kubectl apply -f ${MANIFEST_TMP_DIR}
+
+# Wait for the deployment and pods to be available
+kubectl wait deployment --all --for=condition=Available=True -n default --timeout=10m
+kubectl wait pod --all --for=condition=Ready -n default --timeout=10m
