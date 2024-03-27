@@ -8,6 +8,12 @@
 # Virtual Machine.													#
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+# Check if the script is run as root
+if [ `id -u` -ne 0 ]
+	then echo Please run this script as root or using sudo!
+	exit
+fi
+
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get --with-new-pkgs upgrade -y

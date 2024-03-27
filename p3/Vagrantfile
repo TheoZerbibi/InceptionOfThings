@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
 		end
 
 		server.vm.provision "shell", privileged: true, path: "scripts/enable_X11.sh"
-		server.vm.provision "file", source: "scripts/", destination: "$HOME/scripts/"
-		server.vm.provision "file", source: "manifests/", destination: "$HOME/manifests/"
+		server.vm.provision "file", source: "scripts/", destination: "$HOME/"
+		server.vm.provision "file", source: "manifests/", destination: "$HOME/"
 	end
 end
