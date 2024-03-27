@@ -9,6 +9,8 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 echo LC_ALL=C >> /etc/environment
+unset http_proxy
+unset https_proxy
 
 if [ -z "$1" ] || [ -z "$2" ] ; then
 	echo "Arguments are missing"
@@ -33,7 +35,7 @@ echo "127.0.1.1  $(hostname)" >> /etc/hosts
 apt-get update && apt-get install -y curl
 
 # Install K3s and configure it for a server machine
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --cluster-init --tls-san $(hostname) --bind-address=${SERVER_IP} --advertise-address=${SERVER_IP} --node-ip=${SERVER_IP}" K3S_KUBECONFIG_MODE="644" sh -
+-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --cluster-init --bind-address=${SERVER_IP} --advertise-address=${SERVER_IP} --node-ip=${SERVER_IP}" K3S_KUBECONFIG_MODE="644" sh -
 
 # Set the KUBECONFIG environment variable
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
@@ -46,4 +48,3 @@ kubectl apply -f ${MANIFEST_TMP_DIR}
 
 # Wait for the deployment and pods to be available
 kubectl wait deployment --all --for=condition=Available=True -n default --timeout=10m
-kubectl wait pod --all --for=condition=Ready -n default --timeout=10m

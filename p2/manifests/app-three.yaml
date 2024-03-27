@@ -14,6 +14,7 @@ kind: Deployment
 metadata:
   name: app-three
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: app-three
