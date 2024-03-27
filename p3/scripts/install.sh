@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# Path: p3/scripts/install	.sh										#
+# Path: p3/scripts/install.sh										#
 # Author: Theo ZERIBI												#
 # Date: 2024-03-10													#
 # Description: This script will install and configure K3D on 		#
@@ -32,7 +32,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 getent group docker || sudo groupadd docker
 sudo usermod -aG docker $USER
 
-# Install KubeCLT
+# # Install KubeCLT
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 rm kubectl

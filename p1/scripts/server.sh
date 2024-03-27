@@ -48,6 +48,6 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --cluster-init --bind-ad
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
 # Wait for the node to be ready and label it as a master node with NoSchedule taint
-kubectl wait --for=condition=Ready node/${LOWER_HOSTNAME} --timeout=5m
+kubectl wait --for=condition=Ready node/thzeribis --timeout=5m
 kubectl label node ${LOWER_HOSTNAME} node-role.kubernetes.io/master=true
 kubectl taint --overwrite node ${LOWER_HOSTNAME} node-role.kubernetes.io/master=true:NoSchedule

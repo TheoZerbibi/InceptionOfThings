@@ -11,7 +11,7 @@ Link of the official Vagrant [docs](https://developer.hashicorp.com/vagrant/docs
 
 Based on latest Debian version [12.5.0](https://www.debian.org/News/2024/20240210).
 
-Vagrant box version name is [debian/bookworm64](https://app.vagrantup.com/debian/boxes/bookworm64).
+Vagrant box version name is [generic/debian12](https://app.vagrantup.com/generic/boxes/debian12).
 
 ## Setup
 - Generate SSH key with `ssh-keygen -f .ssh/id_rsa -t rsa -b 4096` with no passphrase.
@@ -56,5 +56,6 @@ bare minimum in terms of resources: 1 CPU, 512 MB of RAM (or 1024).`.
 
 ## Utils
 
+- `kubectl get all --all-namespaces`
 - `kubectl describe pod <podname> -n kube-system`
 
