@@ -11,11 +11,10 @@ Link of the official Vagrant [docs](https://developer.hashicorp.com/vagrant/docs
 
 Based on latest Debian version [12.5.0](https://www.debian.org/News/2024/20240210).
 
-Vagrant box version name is [debian/bookworm64](https://app.vagrantup.com/debian/boxes/bookworm64).
+Vagrant box version name is [generic/debian12](https://app.vagrantup.com/generic/boxes/debian12).
 
 ## Setup
 
 ## Utils
 
-- `kubectl describe pod <podname> -n kube-system`
-
+- `curl -H "Host:app2.com" 192.168.56.110`

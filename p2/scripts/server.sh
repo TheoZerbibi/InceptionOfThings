@@ -35,7 +35,7 @@ echo "127.0.1.1  $(hostname)" >> /etc/hosts
 apt-get update && apt-get install -y curl
 
 # Install K3s and configure it for a server machine
--curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --cluster-init --bind-address=${SERVER_IP} --advertise-address=${SERVER_IP} --node-ip=${SERVER_IP}" K3S_KUBECONFIG_MODE="644" sh -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--flannel-iface eth1 --bind-address=${SERVER_IP}" K3S_KUBECONFIG_MODE=664 sh -
 
 # Set the KUBECONFIG environment variable
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
