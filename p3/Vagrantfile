@@ -5,8 +5,8 @@ Vagrant.configure("2") do |config|
 	config.ssh.forward_x11 = true
 
 	config.vm.provider "virtualbox" do |v|
-		v.memory = 1024
-		v.cpus = 1
+		v.memory = 3024
+		v.cpus = 3
 	end
 
 	config.vm.define :thzeribiS do |server|
@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
 		end
 
 		server.vm.provision "shell", privileged: true, path: "scripts/enable_X11.sh"
-		server.vm.provision "file", source: "scripts/install.sh", destination: "$HOME/scripts/"
-
+		server.vm.provision "file", source: "scripts/", destination: "$HOME/scripts/"
+		server.vm.provision "file", source: "manifests/", destination: "$HOME/manifests/"
 	end
 end

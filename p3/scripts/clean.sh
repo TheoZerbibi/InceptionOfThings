@@ -8,6 +8,13 @@
 # Vagrant Virtual Machine.											#
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+# Check if the script is run as root
+if [ `id -u` -ne 0 ]
+	then echo Please run this script as root or using sudo!
+	exit
+fi
+
+# Clean up the K3D installation
 kubectl delete all --all --namespace argocd
 kubectl delete all --all --namespace dev
 kubectl delete all --all --namespace default

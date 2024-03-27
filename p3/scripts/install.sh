@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Path: p3/scripts/install.sh										#
@@ -7,6 +7,12 @@
 # Description: This script will install and configure K3D on 		#
 # Vagrant Virtual Machine.											#
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# Check if the script is run as root
+if [ `id -u` -ne 0 ]
+	then echo Please run this script as root or using sudo!
+	exit
+fi
 
 # Install Docker
 sudo apt-get update
@@ -39,18 +45,35 @@ rm kubectl
 
 # Install K3D
 curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
-k3d cluster create
+sudo k3d cluster create
 
 # Install ArgoCD
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 # Install ArgoCD CLI
-curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 -o /tmp/
-sudo install -m 555 /tmp/argocd-linux-amd64 /usr/local/bin/argocd
+curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+rm argocd-linux-amd64
 
 # Enable ArgoCD UI
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-kubectl wait -n argocd --for=condition=available deployment --all --timeout=-1s
+kubectl wait -n argocd --for=condition=available deployment --all --timeout=300s
 kubectl port-forward svc/argocd-server -n argocd 8080:443 > /dev/null &
+
+# Login to ArgoCD
+SECRET=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+
+echo
+echo "Login with username 'admin' and password '$SECRET'"
+echo "Visit https://localhost:8080 in your browser to access the ArgoCD UI"
+echo
+
+argocd login localhost:8080 --username admin --password $SECRET --insecure
+kubectl config set-context --current --namespace=argocd
+
+# Install WillApp
+kubectl create namespace dev
+kubectl apply -n argocd -f ../manifests/app-wil.yml
+
 

@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wil
+spec:
+  destination:
+    namespace: dev
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/TheoZerbibi/InceptionOfThings
+    targetRevision: HEAD
+    path: p3/manifests/app
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false

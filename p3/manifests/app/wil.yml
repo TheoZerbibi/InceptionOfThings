@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: playground
+spec:
+  selector:
+    app: playground
+  ports:
+  - port: 8888
+    targetPort: 8888
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: playground
+  name: playground
+  namespace: dev
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: playground
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: playground
+    spec:
+      containers:
+      - image: wil42/playground:v1
+        name: playground
+        resources: {}
+        ports:
+          - containerPort: 8888
