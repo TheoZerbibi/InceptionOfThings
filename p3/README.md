@@ -17,5 +17,3 @@ Vagrant box version name is [generic/debian12](https://app.vagrantup.com/generic
 
 ## Utils
 
-- `kubectl describe pod <podname> -n kube-system`
-
